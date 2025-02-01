@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youtube Thumbnail Extractor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Youtube Thumbnail Extractor</h1>
+    <header>
+        <input type="text" autocomplete="off" id="videoLink" placeholder="Enter Link Here">
+        <input type="button" value="Get Thumbnail" onclick="getThumb()">
+    </header>
+    <section>
+        <p id="error"></p>
+        <div id="thumb-container">
+            <img src="" alt="Thumbnail" id="thumb">
+            <!-- <button id="btn">Download image</button> -->
+        </div>
+    </section>
+    <script>
+        function getThumb() {
+            let videoLink = document.getElementById("videoLink").value
+            let videoID = videoLink.split("=")[1]
+            let thumbLink = `https://i.ytimg.com/vi/${videoID}/hq720.jpg`
+            if (videoLink =="") {
+                document.getElementById("error").innerHTML = "Please Enter a Valid Link"
+            } else {
+                document.getElementById("thumb").src = thumbLink
+            document.getElementById("thumb-container").style.display = "flex"
+            }
+            videoLink = ""
+        }
+    </script>
+</body>
+
+
+</html>
