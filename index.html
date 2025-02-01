@@ -23,14 +23,16 @@
     </section>
     <script>
         function getThumb() {
+            let error = document.getElementById("error")
             let videoLink = document.getElementById("videoLink").value
             let videoID = videoLink.split("=")[1]
             let thumbLink = `https://i.ytimg.com/vi/${videoID}/hq720.jpg`
-            if (videoLink =="") {
-                document.getElementById("error").innerHTML = "Please Enter a Valid Link"
+            if (videoLink.split("=").length == 1) {
+                error.innerHTML = "Please Enter a Valid Link"
+                setTimeout(()=>error.innerHTML="", 4000)
             } else {
                 document.getElementById("thumb").src = thumbLink
-            document.getElementById("thumb-container").style.display = "flex"
+                document.getElementById("thumb-container").style.display = "flex"
             }
             videoLink = ""
         }
