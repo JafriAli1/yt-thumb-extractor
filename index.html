@@ -17,22 +17,35 @@
     <section>
         <p id="error"></p>
         <div id="thumb-container">
-            <img src="" alt="Thumbnail" id="thumb">
+            <img src="" alt="Thumbnail" id="thumbmaxres" class="thumb">
+            <img src="" alt="Thumbnail" id="thumbsddef" class="thumb">
+            <img src="" alt="Thumbnail" id="thumbhqdef" class="thumb">
+            <img src="" alt="Thumbnail" id="thumbmqdef" class="thumb">
+            <img src="" alt="Thumbnail" id="thumbdef" class="thumb">
             <!-- <button id="btn">Download image</button> -->
         </div>
     </section>
     <script>
+
         function getThumb() {
+            const regex =
+                /^(https?:\/\/)?(www\.|m\.)?(youtube\.com|youtu\.be)\/(watch\?v=|embed\/|shorts\/|)?([A-Za-z0-9_-]{11})([&?].*)?$/;
+            const url = document.getElementById("videoLink").value
+            const match = url.match(regex);
             let error = document.getElementById("error")
             let videoLink = document.getElementById("videoLink").value
-            let videoID = videoLink.split("=")[1]
-            let thumbLink = `https://i.ytimg.com/vi/${videoID}/hq720.jpg`
-            if (videoLink.split("=").length == 1) {
-                error.innerHTML = "Please Enter a Valid Link"
-                setTimeout(()=>error.innerHTML="", 4000)
-            } else {
-                document.getElementById("thumb").src = thumbLink
+            if (match) {
+                let videoID = match[5]
+                let thumbLink =`https://i.ytimg.com/vi/${videoID}`
+                document.getElementById("thumbmaxres").src = thumbLink+"/maxresdefault.jpg"
+                document.getElementById("thumbsddef").src = thumbLink+"/sddefault.jpg"
+                document.getElementById("thumbhqdef").src = thumbLink+"/hqdefault.jpg"
+                document.getElementById("thumbmqdef").src = thumbLink+"/mqdefault.jpg"
+                document.getElementById("thumbdef").src = thumbLink+"/default.jpg"
                 document.getElementById("thumb-container").style.display = "flex"
+            } else {
+                error.innerHTML = "Please Enter a Valid URL"
+                setTimeout(() => error.innerHTML = "", 4000)
             }
             videoLink = ""
         }
